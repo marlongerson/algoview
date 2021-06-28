@@ -1,0 +1,14 @@
+﻿<div class="max-w-4xl mx-auto space-y-1">
+    @foreach (var barData in BarData)
+    {
+        <SortContainerBar Color="@barData.Color" Width="@((float)barData.Value / Maximum)" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<SortContainerBarData> BarData { get; set; }
+
+    [Parameter]
+    public int Maximum { get; set; }
+}

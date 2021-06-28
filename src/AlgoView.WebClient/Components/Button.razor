@@ -1,0 +1,12 @@
+﻿<button class="bg-blue-500 rounded-md text-white px-4 py-2 hover:bg-blue-600"
+        @onclick="@((args) => OnClick.InvokeAsync(args))">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+}

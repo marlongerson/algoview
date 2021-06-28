@@ -1,7 +1,97 @@
 ﻿@page "/"
+@using AlgoView.Algorithms
+@using AlgoView.WebClient.Application
+@using System.Collections.Generic
+@using System.Timers
 
-<h1>Hello, world!</h1>
+<SortContainer BarData="@_barData" Maximum="@_barData.Select(b => b.Value).Max()"/>
 
-Welcome to your new app.
+<Button OnClick="Sort">Sort</Button>
+<Button OnClick="Randomize">Randomize</Button>
+<Button OnClick="Pause">Pause</Button>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+    private SortContainerBarData[] _barData;
+    private Timer _timer;
+    private Queue<SortAction<SortContainerBarData>> _actionQueue;
+    private SortAction<SortContainerBarData> _previousAction;
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer();
+        _timer.Interval = 50;
+        _timer.Elapsed += (_, _) =>
+        {
+            if (_previousAction is not null)
+            {
+                _previousAction.Undo();
+            }
+
+            if (_actionQueue.TryDequeue(out var action))
+            {
+                action.Execute();
+                _previousAction = action;
+                StateHasChanged();
+            }
+        };
+
+        Randomize();
+    }
+
+    private void Sort()
+    {
+        _actionQueue = new Queue<SortAction<SortContainerBarData>>();
+
+        var sorter = new SelectionSort<int>(_barData.Select(b => b.Value).ToArray());
+        sorter.Progress += (_, args) =>
+        {
+            _actionQueue.Enqueue(new SelectionSortProgressAction(_barData, args));
+        };
+
+        sorter.MinimumFound += (_, args) =>
+        {
+            _actionQueue.Enqueue(new SelectionSortMinimumFoundAction(_barData, args));
+        };
+
+        sorter.Swapped += (_, args) =>
+        {
+            _actionQueue.Enqueue(new SelectionSortSwappedAction(_barData, args));
+        };
+
+        sorter.Sort();
+        _timer.Start();
+    }
+
+    private void Pause()
+    {
+        if (_timer.Enabled)
+        {
+            _timer.Stop();
+        }
+        else
+        {
+            _timer.Start();
+        }
+    }
+
+    private void Randomize()
+    {
+        var data = GenerateRandomBarData();
+
+        _barData = data.ToArray();
+    }
+
+    private IEnumerable<SortContainerBarData> GenerateRandomBarData()
+    {
+        var rng = new Random();
+
+        for (var i = 0; i < 50; i++)
+        {
+            yield return new SortContainerBarData
+            {
+                Value = rng.Next(i, 101),
+            };
+        }
+    }
+
+}

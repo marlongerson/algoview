@@ -1,0 +1,21 @@
+﻿<div class="@BarCss" style="@string.Format("width: {0:P2}", Width)"/>
+
+@code {
+
+    [Parameter]
+    public float Width { get; set; }
+
+    [Parameter]
+    public SortContainerBarColor Color { get; set; } = SortContainerBarColor.Blue;
+
+    private string BarCss => string.Format("block mx-auto h-2 rounded-sm {0}", Color switch
+    {
+        SortContainerBarColor.Blue => "bg-blue-500",
+        SortContainerBarColor.Green => "bg-green-500",
+        SortContainerBarColor.Orange => "bg-yellow-500",
+        SortContainerBarColor.Pink => "bg-pink-500",
+        SortContainerBarColor.Red => "bg-red-500",
+        _ => throw new ArgumentOutOfRangeException(),
+    });
+
+}

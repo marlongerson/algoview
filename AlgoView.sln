@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CAE6CFD7-6695-4668-B199-86965CFF0CD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoView.WebClient", "src\AlgoView.WebClient\AlgoView.WebClient.csproj", "{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoView.WebClient", "src\AlgoView.WebClient\AlgoView.WebClient.csproj", "{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoView.Algorithms", "src\AlgoView.Algorithms\AlgoView.Algorithms.csproj", "{2FE97120-87CD-40AA-8D39-2F30E1DA0725}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -32,8 +31,27 @@ Global
 		{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}.Release|x64.Build.0 = Release|Any CPU
 		{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}.Release|x86.ActiveCfg = Release|Any CPU
 		{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}.Release|x86.Build.0 = Release|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Debug|x64.Build.0 = Debug|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Debug|x86.Build.0 = Debug|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Release|x64.ActiveCfg = Release|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Release|x64.Build.0 = Release|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Release|x86.ActiveCfg = Release|Any CPU
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979} = {CAE6CFD7-6695-4668-B199-86965CFF0CD0}
+		{2FE97120-87CD-40AA-8D39-2F30E1DA0725} = {CAE6CFD7-6695-4668-B199-86965CFF0CD0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {415DFDCE-30EA-4D47-A466-4FA24A4BE21C}
 	EndGlobalSection
 EndGlobal

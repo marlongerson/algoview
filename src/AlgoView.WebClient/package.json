@@ -1,0 +1,13 @@
+{
+  "name": "algoview.webclient",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "postcss Styles/app.css -o wwwroot/css/app.min.css"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.2.4"
+  }
+}
