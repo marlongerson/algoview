@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CAE6CFD7-6695-4668-B199-86965CFF0CD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoVisualizer.WebClient", "src\AlgoVisualizer.WebClient\AlgoVisualizer.WebClient.csproj", "{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoView.WebClient", "src\AlgoView.WebClient\AlgoView.WebClient.csproj", "{B8D1EB48-FF1A-4FC9-8497-D2A36AEF8979}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
