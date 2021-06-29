@@ -8,7 +8,7 @@
     [Parameter]
     public SortContainerBarColor Color { get; set; } = SortContainerBarColor.Blue;
 
-    private string BarCss => string.Format("block mx-auto h-2 rounded-sm {0}", Color switch
+    private string BarCss => string.Format("block mx-auto h-2 rounded-sm transition-width ease-out duration-200 {0}", Color switch
     {
         SortContainerBarColor.Blue => "bg-blue-500",
         SortContainerBarColor.Green => "bg-green-500",

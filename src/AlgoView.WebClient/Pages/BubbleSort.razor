@@ -1,12 +1,14 @@
-﻿@page "/merge-sort"
+﻿@page "/BubbleSort"
 @using System.Timers
 @using AlgoView.WebClient.Application
+<h3>BubbleSort</h3>
 
-<h1>Merge Sort</h1>
-<SortContainer Maximum="100" BarData="@_barData"/>
+
+<SortContainer BarData="@_barData" Maximum="@_barData.Select(b => b.Value).Max()"/>
 
 <Button OnClick="Sort">Sort</Button>
 <Button OnClick="Randomize">Randomize</Button>
+<Button OnClick="Pause">Pause</Button>
 
 @code {
     private SortContainerBarData[] _barData;
@@ -23,7 +25,6 @@
             if (_previousAction is not null)
             {
                 _previousAction.UndoHighlight();
-                _previousAction = null;
             }
 
             if (_actionQueue.TryDequeue(out var action))
@@ -39,20 +40,33 @@
 
     private void Sort()
     {
-        var sorter = new AlgoView.Algorithms.MergeSort(_barData.Select(bd => bd.Value).ToArray());
+        _actionQueue = new Queue<SortAction<SortContainerBarData>>();
+
+        var sorter = new AlgoView.Algorithms.BubbleSort(_barData.Select(b => b.Value).ToArray());
+        sorter.Progress += (_, args) =>
+        {
+            _actionQueue.Enqueue(new BubbleSortProgressAction(_barData, args));
+        };
+
         sorter.Swapped += (_, args) =>
         {
-            _actionQueue.Enqueue(new MergeSortAssignedAction(_barData, args));
+            _actionQueue.Enqueue(new BubbleSortSwappedAction(_barData, args));
         };
 
-        sorter.Divided += (_, args) =>
-        {
-            _actionQueue.Enqueue(new MergeSortDividedAction(_barData, args));
-        };
-
-        _actionQueue = new Queue<SortAction<SortContainerBarData>>();
         sorter.Sort();
         _timer.Start();
+    }
+
+    private void Pause()
+    {
+        if (_timer.Enabled)
+        {
+            _timer.Stop();
+        }
+        else
+        {
+            _timer.Start();
+        }
     }
 
     private void Randomize()
@@ -74,5 +88,4 @@
             };
         }
     }
-
 }
