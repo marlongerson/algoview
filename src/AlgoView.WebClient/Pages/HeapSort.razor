@@ -1,8 +1,6 @@
-﻿@page "/bubble-sort"
+﻿@page "/heap-sort"
 @using System.Timers
 @using AlgoView.WebClient.Application
-<h3>BubbleSort</h3>
-
 
 <SortContainer BarData="@_barData" Maximum="@_barData.Select(b => b.Value).Max()"/>
 
@@ -19,7 +17,7 @@
     protected override void OnInitialized()
     {
         _timer = new Timer();
-        _timer.Interval = 10;
+        _timer.Interval = 50;
         _timer.Elapsed += (_, _) =>
         {
             if (_previousAction is not null)
@@ -42,16 +40,21 @@
     {
         _actionQueue = new Queue<SortAction<SortContainerBarData>>();
 
-        var sorter = new AlgoView.Algorithms.BubbleSort(_barData.Select(b => b.Value).ToArray());
+        var sorter = new AlgoView.Algorithms.HeapSort(_barData.Select(b => b.Value).ToArray());
         sorter.Progress += (_, args) =>
         {
-            _actionQueue.Enqueue(new BubbleSortProgressAction(_barData, args));
+            _actionQueue.Enqueue(new HeapSortProgressAction(_barData, args));
         };
 
         sorter.Swapped += (_, args) =>
         {
-            _actionQueue.Enqueue(new BubbleSortSwappedAction(_barData, args));
+            _actionQueue.Enqueue(new HeapSortSwappedAction(_barData, args));
         };
+
+        // sorter.BeforeHeapify += (_, args) =>
+        // {
+        //     _actionQueue.Enqueue(new HeapSortBeforeHeapifyAction(_barData, args));
+        // };
 
         sorter.Sort();
         _timer.Start();
@@ -88,4 +91,5 @@
             };
         }
     }
+
 }
