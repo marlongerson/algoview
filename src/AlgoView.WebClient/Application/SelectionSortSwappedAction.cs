@@ -23,7 +23,7 @@ namespace AlgoView.WebClient.Application
             Data[_args.Index2].Color = SortContainerBarColor.Green;
         }
 
-        public override void Undo()
+        public override void UndoHighlight()
         {
 
             Data[_args.Index1].Color = SortContainerBarColor.Blue;

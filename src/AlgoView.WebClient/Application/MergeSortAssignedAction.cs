@@ -3,11 +3,11 @@ using AlgoView.WebClient.Components;
 
 namespace AlgoView.WebClient.Application
 {
-    public class SelectionSortMinimumFoundAction : SortAction<SortContainerBarData>
+    public class MergeSortAssignedAction : SortAction<SortContainerBarData>
     {
-        private readonly SelectionSortMinimumFoundEventArgs _args;
+        private readonly MergeSortAssignedEventArgs _args;
 
-        public SelectionSortMinimumFoundAction(SortContainerBarData[] data, SelectionSortMinimumFoundEventArgs args)
+        public MergeSortAssignedAction(SortContainerBarData[] data, MergeSortAssignedEventArgs args)
             : base(data)
         {
             _args = args;
@@ -15,7 +15,8 @@ namespace AlgoView.WebClient.Application
 
         public override void Execute()
         {
-            Data[_args.Index].Color = SortContainerBarColor.Green;
+            Data[_args.Index].Value = _args.Value;
+            Data[_args.Index].Color = SortContainerBarColor.Orange;
         }
 
         public override void UndoHighlight()

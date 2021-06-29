@@ -1,7 +1,6 @@
-﻿@page "/"
+﻿@page "/selection-sort"
 @using AlgoView.Algorithms
 @using AlgoView.WebClient.Application
-@using System.Collections.Generic
 @using System.Timers
 
 <SortContainer BarData="@_barData" Maximum="@_barData.Select(b => b.Value).Max()"/>
@@ -24,7 +23,7 @@
         {
             if (_previousAction is not null)
             {
-                _previousAction.Undo();
+                _previousAction.UndoHighlight();
             }
 
             if (_actionQueue.TryDequeue(out var action))

@@ -2,7 +2,7 @@
 
 namespace AlgoView.Algorithms
 {
-    public class SelectionSort<T> where T : IComparable
+    public class SelectionSort<T> where T : IComparable<T>
     {
         private T[] _values;
 

@@ -1,0 +1,78 @@
+﻿@page "/merge-sort"
+@using System.Timers
+@using AlgoView.WebClient.Application
+
+<h1>Merge Sort</h1>
+<SortContainer Maximum="100" BarData="@_barData"/>
+
+<Button OnClick="Sort">Sort</Button>
+<Button OnClick="Randomize">Randomize</Button>
+
+@code {
+    private SortContainerBarData[] _barData;
+    private Timer _timer;
+    private Queue<SortAction<SortContainerBarData>> _actionQueue;
+    private SortAction<SortContainerBarData> _previousAction;
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer();
+        _timer.Interval = 25;
+        _timer.Elapsed += (_, _) =>
+        {
+            if (_previousAction is not null)
+            {
+                _previousAction.UndoHighlight();
+                _previousAction = null;
+            }
+
+            if (_actionQueue.TryDequeue(out var action))
+            {
+                action.Execute();
+                _previousAction = action;
+                StateHasChanged();
+            }
+        };
+
+        Randomize();
+    }
+
+    private void Sort()
+    {
+        var sorter = new AlgoView.Algorithms.MergeSort(_barData.Select(bd => bd.Value).ToArray());
+        sorter.Swapped += (_, args) =>
+        {
+            _actionQueue.Enqueue(new MergeSortAssignedAction(_barData, args));
+        };
+
+        sorter.Divided += (_, args) =>
+        {
+            _actionQueue.Enqueue(new MergeSortDividedAction(_barData, args));
+        };
+
+        _actionQueue = new Queue<SortAction<SortContainerBarData>>();
+        sorter.Sort();
+        _timer.Start();
+    }
+
+    private void Randomize()
+    {
+        var data = GenerateRandomBarData();
+
+        _barData = data.ToArray();
+    }
+
+    private IEnumerable<SortContainerBarData> GenerateRandomBarData()
+    {
+        var rng = new Random();
+
+        for (var i = 0; i < 50; i++)
+        {
+            yield return new SortContainerBarData
+            {
+                Value = rng.Next(i, 101),
+            };
+        }
+    }
+
+}
