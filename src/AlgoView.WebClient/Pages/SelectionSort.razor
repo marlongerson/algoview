@@ -3,22 +3,28 @@
 @using AlgoView.WebClient.Application
 @using System.Timers
 
-<SortContainer BarData="@_barData" Maximum="@_barData.Select(b => b.Value).Max()"/>
 
-<Button OnClick="Sort">Sort</Button>
-<Button OnClick="Randomize">Randomize</Button>
-<Button OnClick="Pause">Pause</Button>
+<h1 class="text-3xl text-center font-bold mb-6">Selection Sort</h1>
+<div class="flex justify-center mb-10 space-x-4">
+    <Button OnClick="Sort">Sort</Button>
+    <Button OnClick="Randomize">Randomize</Button>
+    <Button OnClick="Pause">@PauseButtonText</Button>
+</div>
+
+<SortContainer BarData="@_barData" Maximum="@_barData.Select(b => b.Value).Max()"/>
 
 @code {
     private SortContainerBarData[] _barData;
     private Timer _timer;
     private Queue<SortAction<SortContainerBarData>> _actionQueue;
     private SortAction<SortContainerBarData> _previousAction;
+    
+    private string PauseButtonText => !_timer.Enabled && _actionQueue?.Count > 0 ? "Resume" : "Pause";
 
     protected override void OnInitialized()
     {
         _timer = new Timer();
-        _timer.Interval = 50;
+        _timer.Interval = 25;
         _timer.Elapsed += (_, _) =>
         {
             if (_previousAction is not null)

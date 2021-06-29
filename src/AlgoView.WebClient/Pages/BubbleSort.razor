@@ -1,14 +1,15 @@
 ﻿@page "/bubble-sort"
 @using System.Timers
 @using AlgoView.WebClient.Application
-<h3>BubbleSort</h3>
 
+<h1 class="text-3xl text-center font-bold mb-6">Bubble Sort</h1>
+<div class="flex justify-center mb-10 space-x-4">
+    <Button OnClick="Sort">Sort</Button>
+    <Button OnClick="Randomize">Randomize</Button>
+    <Button OnClick="Pause">@PauseButtonText</Button>
+</div>
 
 <SortContainer BarData="@_barData" Maximum="@_barData.Select(b => b.Value).Max()"/>
-
-<Button OnClick="Sort">Sort</Button>
-<Button OnClick="Randomize">Randomize</Button>
-<Button OnClick="Pause">Pause</Button>
 
 @code {
     private SortContainerBarData[] _barData;
@@ -16,6 +17,8 @@
     private Queue<SortAction<SortContainerBarData>> _actionQueue;
     private SortAction<SortContainerBarData> _previousAction;
 
+    private string PauseButtonText => !_timer.Enabled && _actionQueue?.Count > 0 ? "Resume" : "Pause";
+    
     protected override void OnInitialized()
     {
         _timer = new Timer();
